@@ -23,6 +23,7 @@ def post_facebook_message(fbid, response_message):
                                 "message":{"text":response_message}
                                 })
     status = requests.post(post_message_url, headers={"Content-Type": "application/json"},data=response_msg)
+    print(status.json())
 def get_openai_response(prompt, model='gpt-3.5-turbo',max_tokens=1000, temperature=0):
         response = openai.ChatCompletion.create(
             model=model,

@@ -38,9 +38,11 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'FBapi',
+    'TelegramApi',
     'rest_framework',
     "django_celery_beat",
     'celery',
+
 
 ]
 
