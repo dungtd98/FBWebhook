@@ -7,7 +7,7 @@ import os
 from dotenv import load_dotenv
 load_dotenv('.env')
 from celery import shared_task
-
+from viberbot.api.messages.text_message import TextMessage
 # Code from here
 OPENAI_API_KEY = os.environ.get("OPENAI_API_KEY")
 TELEGRAM_BOT_TOKEN = os.environ.get("TELEGRAM_BOT_TOKEN")
@@ -41,3 +41,9 @@ def telegram_response_message(chat_id, prompt):
     response_message(chat_id, openai_response)
     logging.info('RUN TASK RETURN Telegram MESSAGE DONE')
 
+@shared_task
+def viberbot_response_message(sender_id, prompt, viber_instance):
+    openai_response = get_openai_response(prompt)
+    viber_response_text = TextMessage(text=openai_response)
+    viber_instance.send_messages(to=sender_id, messages=[viber_response_text,])
+    logging.info('RUN TASK RESPONSE Viber DONE')
